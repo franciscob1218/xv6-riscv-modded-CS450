@@ -6,6 +6,47 @@
 #include "spinlock.h"
 #include "proc.h"
 
+int sys_whereIs(void)
+{
+  char *addr;
+  if(argptr(0, &addr, sizeof(addr)) < 0)
+    return -1;
+
+  pde_t *pgdir = myproc()->pgdir;
+  pte_t *pte = walkpgdir(pgdir, addr, 0);
+
+  if(pte == 0)
+    return -1;
+
+  if(!(*pte & PTE_P))
+    return -1;
+
+  return PTE_ADDR(*pte) >> PGSHIFT;
+}
+int sys_isWritable(void *addr) {
+  pte_t *pte = walkpgdir(myproc()->pgdir, addr, 0);
+  if (!pte)
+    return -1;
+  return (*pte & PTE_W) ? 1 : 0;
+}
+
+int sys_notWritable(void *addr) {
+  pte_t *pte = walkpgdir(myproc()->pgdir, addr, 0);
+  if (!pte)
+    return -1;
+  *pte &= ~PTE_W;
+  return 0;
+}
+
+int sys_yesWritable(void *addr) {
+  pte_t *pte = walkpgdir(myproc()->pgdir, addr, 0);
+  if (!pte)
+    return -1;
+  *pte |= PTE_W;
+  return 0;
+}
+
+
 uint64
 sys_exit(void)
 {

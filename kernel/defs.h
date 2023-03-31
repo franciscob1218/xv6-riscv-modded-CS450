@@ -134,6 +134,10 @@ int             strncmp(const char*, const char*, uint);
 char*           strncpy(char*, const char*, int);
 
 // syscall.c
+int             whereIs(void*);
+int             isWritable(void*);
+int             notWritable(void*);
+int             yesWritable(void*);
 void            argint(int, int*);
 int             argstr(int, char*, int);
 void            argaddr(int, uint64 *);
