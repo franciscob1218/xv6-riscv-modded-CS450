@@ -1,6 +1,6 @@
-#include "types.h"
-#include "stat.h"
-#include "user.h"
+#include "kernel/types.h"
+#include "kernel/stat.h"
+#include "user/user.h"
 
 #define PAGE_SIZE 4096
 
