@@ -2,25 +2,31 @@
 #include "stat.h"
 #include "user.h"
 
-#define ADDR_VALID (void*)0x4000
-#define ADDR_INVALID (void*)0x80000000
+#define PAGE_SIZE 4096
 
-int main(int argc, char *argv[]) {
-    // Call whereIs() with a valid virtual address
-    int frame_num = whereIs(ADDR_VALID);
-    if (frame_num >= 0) {
-        printf(1, "Physical frame number of %p: %d\n", ADDR_VALID, frame_num);
-    } else {
-        printf(1, "Error: virtual address %p is invalid\n", ADDR_VALID);
-    }
+int main(int argc, char *argv[])
+{
+    char *address = (char *)0x100000;
 
-    // Call whereIs() with an invalid virtual address
-    frame_num = whereIs(ADDR_INVALID);
-    if (frame_num >= 0) {
-        printf(1, "Physical frame number of %p: %d\n", ADDR_INVALID, frame_num);
-    } else {
-        printf(1, "Error: virtual address %p is invalid\n", ADDR_INVALID);
-    }
+    printf("Virtual Address: %p\n", address);
 
-    exit(0);
+    int pfn = whereIs(address);
+
+    if (pfn < 0)
+        printf("Error: Invalid Address\n");
+    else
+        printf("Physical Frame Number: %d\n", pfn);
+
+    address = (char *)(PAGE_SIZE - 1);
+
+    printf("Virtual Address: %p\n", address);
+
+    pfn = whereIs(address);
+
+    if (pfn < 0)
+        printf("Error: Invalid Address\n");
+    else
+        printf("Physical Frame Number: %d\n", pfn);
+
+    return 0;
 }
