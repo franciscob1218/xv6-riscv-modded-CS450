@@ -6,6 +6,24 @@
 #include "spinlock.h"
 #include "proc.h"
 
+int sys_whereIs(void)
+{
+  
+}
+
+int sys_isWritable(void *addr) {
+  
+}
+
+int sys_notWritable(void *addr) {
+  
+}
+
+int sys_yesWritable(void *addr) {
+  
+}
+
+
 uint64
 sys_exit(void)
 {
