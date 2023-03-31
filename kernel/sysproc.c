@@ -8,20 +8,33 @@
 
 int sys_whereIs(void)
 {
-  
+  //added
+  char virtual_address;
+
+  if(argstr(0, &virtual_address, sizeof(char*)) < 0)
+    return -1;
+
+  struct proc* p = myproc();
+
+  pte_t* pte = walk(p->pagetable, (uint64)virtual_address, 0);
+
+  if(pte == 0 || (*pte & PTE_V) == 0)
+    return -1;
+
+  return PTE2PA(*pte);
 }
 
-int sys_isWritable(void *addr) {
+//int sys_isWritable(void *addr) {
   
-}
+//}
 
-int sys_notWritable(void *addr) {
+//int sys_notWritable(void *addr) {
   
-}
+//}
 
-int sys_yesWritable(void *addr) {
+//int sys_yesWritable(void *addr) {
   
-}
+//}
 
 
 uint64
