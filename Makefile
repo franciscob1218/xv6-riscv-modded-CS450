@@ -133,7 +133,9 @@ UPROGS=\
 	$U/_wc\
 	$U/_zombie\
 	$U/_whereIs\
-	$U/_writeable_test\
+	$U/_notWritable\
+	$U/_isWritable\
+	$U/_yesWritable\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)

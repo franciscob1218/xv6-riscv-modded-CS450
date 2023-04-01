@@ -9,14 +9,14 @@
 int sys_whereIs(void)
 {
   //added
-  char virtual_address;
+  char va;
 
-  if(argstr(0, &virtual_address, sizeof(char*)) < 0)
+  if(argstr(0, &va, sizeof(char*)) < 0)
     return -1;
 
   struct proc* p = myproc();
 
-  pte_t* pte = walk(p->pagetable, (uint64)virtual_address, 0);
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
 
   if(pte == 0 || (*pte & PTE_V) == 0)
     return -1;
@@ -24,17 +24,58 @@ int sys_whereIs(void)
   return PTE2PA(*pte);
 }
 
-//int sys_isWritable(void *addr) {
+int sys_iswritable(void)
+{
+  char va;
+  struct proc* p = myproc();
+  if(argstr(0, &va, sizeof(char *)) < 0)
+    return -1;
   
-//}
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
+  if(pte == 0)
+    return -1;
+  
+  if((*pte & PTE_W) == 0)
+    return 0;
+  else
+    return 1;
+}
 
-//int sys_notWritable(void *addr) {
+int sys_notwritable(void)
+{
+  char va;
+  struct proc* p = myproc();
+  if(argstr(0, &va, sizeof(char *)) < 0)
+    return -1;
   
-//}
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
+  if(pte == 0)
+    return -1;
+  
+  if((*pte & PTE_W) == 0)
+    return -1;
 
-//int sys_yesWritable(void *addr) {
+  *pte &= ~PTE_W;
+  return 0;
+}
+
+int sys_yeswritable(void)
+{
+  char va;
+  struct proc* p = myproc();
+  if(argstr(0, &va, sizeof(char *)) < 0)
+    return -1;
   
-//}
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
+  if(pte == 0)
+    return -1;
+  
+  if((*pte & PTE_W) != 0)
+    return -1;
+
+  *pte |= PTE_W;
+  return 0;
+}
 
 
 uint64
