@@ -1,3 +1,6 @@
+// Francisco Barba Cuellar #A20121767
+// Deimantas Gilys #A20434583
+// Nathan Cook #A20458336
 struct buf;
 struct context;
 struct file;

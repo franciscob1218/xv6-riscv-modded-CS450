@@ -1,3 +1,6 @@
+// Francisco Barba Cuellar #A20121767
+// Deimantas Gilys #A20434583
+// Nathan Cook #A20458336
 // System call numbers
 #define SYS_fork    1
 #define SYS_exit    2
