@@ -132,7 +132,7 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
-	$U/_whereIs_test\
+	$U/_whereIs\
 	$U/_writeable_test\
 
 fs.img: mkfs/mkfs README $(UPROGS)
