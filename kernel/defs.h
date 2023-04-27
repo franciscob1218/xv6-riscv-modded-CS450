@@ -1,3 +1,6 @@
+// Francisco Barba Cuellar #A20121767
+// Deimantas Gilys #A20434583
+// Nathan Cook #A20458336
 struct buf;
 struct context;
 struct file;
@@ -134,6 +137,10 @@ int             strncmp(const char*, const char*, uint);
 char*           strncpy(char*, const char*, int);
 
 // syscall.c
+int             whereIs(void*);
+int             isWritable(void*);
+int             notWritable(void*);
+int             yesWritable(void*);
 void            argint(int, int*);
 int             argstr(int, char*, int);
 void            argaddr(int, uint64 *);

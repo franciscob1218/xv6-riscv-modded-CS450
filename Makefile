@@ -1,3 +1,6 @@
+# Francisco Barba Cuellar #A20121767
+# Deimantas Gilys #A20434583
+# Nathan Cook #A20458336
 K=kernel
 U=user
 
@@ -132,6 +135,11 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
+	$U/_whereIs\
+	$U/_notWritable\
+	$U/_isWritable\
+	$U/_yesWritable\
+	$U/_dirWalker\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
@@ -153,7 +161,7 @@ QEMUGDB = $(shell if $(QEMU) -help | grep -q '^-gdb'; \
 	then echo "-gdb tcp::$(GDBPORT)"; \
 	else echo "-s -p $(GDBPORT)"; fi)
 ifndef CPUS
-CPUS := 3
+CPUS := 1
 endif
 
 QEMUOPTS = -machine virt -bios none -kernel $K/kernel -m 128M -smp $(CPUS) -nographic

@@ -1,3 +1,6 @@
+// Francisco Barba Cuellar #A20121767
+// Deimantas Gilys #A20434583
+// Nathan Cook #A20458336
 #include "types.h"
 #include "riscv.h"
 #include "defs.h"
@@ -5,6 +8,78 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+
+int sys_whereIs(void)
+{
+  //added
+  char va;
+
+  if(argstr(0, &va, sizeof(char*)) < 0)
+    return -1;
+
+  struct proc* p = myproc();
+
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
+
+  if(pte == 0 || (*pte & PTE_V) == 0)
+    return -1;
+
+  return PTE2PA(*pte);
+}
+
+int sys_iswritable(void)
+{
+  char va;
+  struct proc* p = myproc();
+  if(argstr(0, &va, sizeof(char *)) < 0)
+    return -1;
+  
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
+  if(pte == 0)
+    return -1;
+  
+  if((*pte & PTE_W) == 0)
+    return 0;
+  else
+    return 1;
+}
+
+int sys_notwritable(void)
+{
+  char va;
+  struct proc* p = myproc();
+  if(argstr(0, &va, sizeof(char *)) < 0)
+    return -1;
+  
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
+  if(pte == 0)
+    return -1;
+  
+  if((*pte & PTE_W) == 0)
+    return -1;
+
+  *pte &= ~PTE_W;
+  return 0;
+}
+
+int sys_yeswritable(void)
+{
+  char va;
+  struct proc* p = myproc();
+  if(argstr(0, &va, sizeof(char *)) < 0)
+    return -1;
+  
+  pte_t* pte = walk(p->pagetable, (uint64)va, 0);
+  if(pte == 0)
+    return -1;
+  
+  if((*pte & PTE_W) != 0)
+    return -1;
+
+  *pte |= PTE_W;
+  return 0;
+}
+
 
 uint64
 sys_exit(void)

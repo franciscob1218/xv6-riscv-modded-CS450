@@ -1,3 +1,6 @@
+// Francisco Barba Cuellar #A20121767
+// Deimantas Gilys #A20434583
+// Nathan Cook #A20458336
 struct stat;
 
 // system calls
@@ -22,6 +25,10 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int whereIs(void*);
+int isWritable(void*);
+int notWritable(void*);
+int yesWritable(void*);
 
 // ulib.c
 int stat(const char*, struct stat*);
