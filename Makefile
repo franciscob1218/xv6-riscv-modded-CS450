@@ -140,6 +140,7 @@ UPROGS=\
 	$U/_isWritable\
 	$U/_yesWritable\
 	$U/_dirWalker\
+	$U/_imapWalker\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)

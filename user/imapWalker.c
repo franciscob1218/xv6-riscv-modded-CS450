@@ -1,7 +1,7 @@
-#include "../kernel/types.h"
-#include "../kernel/stat.h"
+#include "kernel/types.h"
+#include "kernel/stat.h"
 #include "user.h"
-#include "../kernel/fs.h"
+#include "kernel/fs.h"
 
 void
 walk_directory(char *path)
@@ -53,10 +53,10 @@ main(int argc, char *argv[])
 {
   if (argc < 2) {
     printf("Usage: imapWalker <path>\n");
-    exit();
+    exit(0);
   }
 
   walk_directory(argv[1]);
 
-  exit();
+  exit(0);
 }
