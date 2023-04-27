@@ -1,8 +1,8 @@
-#include "kernel/types.h"
-#include "kernel/stat.h"
-#include "kernel/fs.h"
-#include "user/user.h"
-#include "kernel/fcntl.h"
+#include "../kernel/types.h"
+#include "../kernel/stat.h"
+#include "../kernel/fs.h"
+#include "user.h"
+#include "../kernel/fcntl.h"
 
 // Helper function to construct a path for the inode
 void inode_path(char *buf, int size, int inum) {
