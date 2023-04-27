@@ -142,6 +142,7 @@ UPROGS=\
 	$U/_dirWalker\
 	$U/_imapWalker\
 	$U/_inodeReader\
+	$U/_dirErase\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
